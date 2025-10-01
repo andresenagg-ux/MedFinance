@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+      - name: Install frontend dependencies
+        working-directory: frontend-web
+        run: npm install
+      - name: Install mobile dependencies
+        working-directory: mobile
+        run: npm install
+
+  test:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+      - name: Run backend tests
+        working-directory: backend
+        run: npm test
+      - name: Install frontend dependencies
+        working-directory: frontend-web
+        run: npm install
+      - name: Run frontend tests
+        working-directory: frontend-web
+        run: npm test
+      - name: Install mobile dependencies
+        working-directory: mobile
+        run: npm install
+      - name: Run mobile tests
+        working-directory: mobile
+        run: npm test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+      - name: Build backend
+        working-directory: backend
+        run: npm run build
+      - name: Install frontend dependencies
+        working-directory: frontend-web
+        run: npm install
+      - name: Build frontend
+        working-directory: frontend-web
+        run: npm run build
