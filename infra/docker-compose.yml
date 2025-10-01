@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    command: npm start --prefix backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../backend:/app/backend
+      - ../frontend-web:/app/frontend-web
+      - ../frontend-mobile:/app/frontend-mobile
+    env_file:
+      - .env
