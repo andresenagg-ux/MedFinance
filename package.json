@@ -1,0 +1,22 @@
+{
+  "name": "medfinance",
+  "version": "1.0.0",
+  "description": "ferramenta educacional para finanças dos profissionais médicos",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-oauth2-jwt-bearer": "^1.7.1"
+  }
+}
