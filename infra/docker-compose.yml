@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../infra/Dockerfile.backend
+    env_file:
+      - ../infra/.env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+
+  frontend-web:
+    build:
+      context: ../frontend-web
+      dockerfile: ../infra/Dockerfile.frontend-web
+    env_file:
+      - ../infra/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  frontend-mobile:
+    image: node:18-alpine
+    working_dir: /app
+    command: npm run start
+    volumes:
+      - ../frontend-mobile:/app
+    env_file:
+      - ../infra/.env
+    ports:
+      - "19000:19000"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: medfinance
+      POSTGRES_USER: medfinance
+      POSTGRES_PASSWORD: medfinance
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

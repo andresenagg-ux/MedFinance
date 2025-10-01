@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:1
+
+FROM node:18-alpine AS base
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY prisma ./prisma
+
+RUN npm install
+RUN npx prisma generate || true
+
+COPY . .
+
+RUN npm run build
+
+FROM node:18-alpine AS production
+
+ENV NODE_ENV=production
+WORKDIR /app
+
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/dist ./dist
+COPY --from=base /app/package*.json ./
+
+EXPOSE 4000
+
+CMD ["npm", "run", "start"]
