@@ -1,23 +1,32 @@
-# Finanças Médicas
+# MedFinance
 
-Estrutura inicial do projeto full stack com backend Node.js, frontend web em React e frontend mobile em React Native.
+Ferramenta educacional para apoiar a gestão financeira de profissionais médicos.
 
-## Estrutura
+## Estrutura do projeto
 
-- backend: API Express para gerenciamento de dados financeiros.
-- frontend-web: interface web com React e Vite.
-- frontend-mobile: aplicativo mobile usando Expo.
-- infra: configuração de contêineres e variáveis de ambiente.
+- **backend**: API Express responsável pelo gerenciamento dos dados financeiros.
+- **frontend-web**: interface web construída com React e Vite.
+- **frontend-mobile**: aplicativo mobile desenvolvido com Expo.
+- **infra**: configuração de contêineres, variáveis de ambiente e serviços auxiliares.
 
 ## Primeiros passos
 
 ### Backend
 
-```bash
-cd backend
-npm install
-npm run dev
-```
+1. Configure a variável de ambiente `DATABASE_URL` apontando para sua instância PostgreSQL.
+2. Instale as dependências e aplique as migrações do Prisma:
+
+   ```bash
+   cd backend
+   npm install
+   npx prisma migrate dev
+   ```
+
+3. Inicie a API em modo de desenvolvimento:
+
+   ```bash
+   npm run dev
+   ```
 
 ### Frontend Web
 
