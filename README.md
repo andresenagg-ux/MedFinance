@@ -1,6 +1,8 @@
 # MedFinance
 
-Ferramenta educacional para apoiar a gestão financeira de profissionais médicos. O backend é uma aplicação Node.js com suporte a autenticação via Auth0, consumida pelos clientes web e mobile da plataforma.
+Ferramenta educacional para apoiar a gestão financeira de profissionais médicos.
+
+O backend é uma aplicação Node.js com suporte a autenticação via Auth0, consumida pelos clientes web e mobile da plataforma.
 
 ## Estrutura do projeto
 
@@ -47,7 +49,7 @@ Ferramenta educacional para apoiar a gestão financeira de profissionais médico
    - `AUTH0_AUDIENCE`: o identificador configurado para a API no Auth0.
    - `PORT` (opcional): porta em que a API irá rodar.
 
-5. A API ficará disponível em `http://localhost:3000` (ou na porta configurada).
+5. Inicie o servidor normalmente. A API ficará disponível em `http://localhost:3000` (ou na porta configurada).
 
 #### Rotas protegidas
 
