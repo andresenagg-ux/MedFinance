@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "MedFinance",
+    "slug": "medfinance",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "medfinance",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "extra": {
+      "auth0Domain": "${AUTH0_DOMAIN}",
+      "auth0ClientId": "${AUTH0_CLIENT_ID}",
+      "auth0Audience": "${AUTH0_AUDIENCE}",
+      "apiUrl": "${API_URL}"
+    }
+  }
+}
