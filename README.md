@@ -78,8 +78,15 @@ npm start
 
 ### Infraestrutura
 
+Para executar todos os serviços com Docker Compose:
+
 ```bash
 cd infra
 cp .env.example .env
-docker-compose up --build
+docker compose up --build
 ```
+
+O arquivo `.env` contém as variáveis usadas pelos contêineres. Por padrão ele
+configura um banco PostgreSQL local, as credenciais de autenticação do Auth0 e
+as chaves de integração com a API de pagamentos. Ajuste os valores conforme o
+ambiente que estiver utilizando.

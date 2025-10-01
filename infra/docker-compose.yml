@@ -1,15 +1,60 @@
 version: '3.9'
+
 services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: medfinance-postgres
+    environment:
+      POSTGRES_USER: medfinance
+      POSTGRES_PASSWORD: medfinance
+      POSTGRES_DB: medfinance
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medfinance"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
   backend:
     build:
-      context: ..
-      dockerfile: infra/Dockerfile
-    command: npm start --prefix backend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ../backend:/app/backend
-      - ../frontend-web:/app/frontend-web
-      - ../frontend-mobile:/app/frontend-mobile
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: medfinance-backend
+    command: npm run dev
     env_file:
       - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://medfinance:medfinance@postgres:5432/medfinance?schema=public}
+      PORT: ${PORT:-3000}
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      - ../backend:/app
+      - backend-node-modules:/app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend-web:
+    build:
+      context: ../frontend-web
+      dockerfile: Dockerfile
+    container_name: medfinance-frontend-web
+    command: npm run dev -- --host 0.0.0.0 --port ${FRONTEND_WEB_PORT:-5173}
+    env_file:
+      - .env
+    ports:
+      - "${FRONTEND_WEB_PORT:-5173}:5173"
+    volumes:
+      - ../frontend-web:/app
+      - frontend-web-node-modules:/app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  postgres-data:
+  backend-node-modules:
+  frontend-web-node-modules:
