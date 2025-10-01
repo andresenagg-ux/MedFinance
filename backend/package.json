@@ -1,29 +1,31 @@
 {
   "name": "medfinance-backend",
   "version": "1.0.0",
-  "description": "Backend server for the MedFinance application",
-  "main": "server.js",
+  "description": "API em Node.js + Express escrita em TypeScript para a plataforma MedFinance",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
-    "express": "^4.21.2",
-    "jest": "^29.7.0",
-    "morgan": "^1.10.1",
-    "pg": "^8.16.3",
-    "prisma": "^5.22.0",
-    "supertest": "^6.3.4",
-    "winston": "^3.18.2"
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/morgan": "^1.9.7",
+    "@types/node": "^20.14.12",
+    "@types/supertest": "^2.0.16",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.2.5",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
   }
 }
