@@ -1,92 +1,76 @@
 # MedFinance
 
-Ferramenta educacional para apoiar a gestão financeira de profissionais médicos. O backend é uma aplicação Node.js com suporte a autenticação via Auth0, consumida pelos clientes web e mobile da plataforma.
+Plataforma educacional para apoiar profissionais da área da saúde na organização de finanças pessoais. O monorepositório
+concentra a API em Node.js, a aplicação web (React + Vite) e o aplicativo mobile com Expo, além de uma pipeline de CI
+que garante que todos os projetos continuam compilando e com testes verdes.
 
-## Estrutura do projeto
+## Estrutura do repositório
 
-- **backend**: API Express responsável pelo gerenciamento dos dados financeiros.
-- **frontend-web**: interface web construída com React e Vite.
-- **frontend-mobile**: aplicativo mobile desenvolvido com Expo.
-- **infra**: configuração de contêineres, variáveis de ambiente e serviços auxiliares.
+- `backend/`: API em Node.js + Express escrita em TypeScript com rotas básicas e camada de serviço de usuários.
+- `frontend-web/`: aplicação web React (Vite) com página institucional e testes usando React Testing Library + Vitest.
+- `frontend-mobile/`: aplicativo React Native com Expo e testes usando React Native Testing Library.
+- `.github/workflows/ci.yml`: pipeline de CI com instalação de dependências, testes e builds.
 
-## Primeiros passos
+## Pré-requisitos
 
-### Backend
+- Node.js 18+
+- npm 9+
+- (Opcional) Expo CLI (`npm install -g expo-cli`) para executar o app mobile em dispositivos/simuladores.
 
-1. Configure a variável de ambiente `DATABASE_URL` apontando para sua instância PostgreSQL.
-2. Instale as dependências e aplique as migrações do Prisma:
+## Backend
 
-   ```bash
-   cd backend
-   npm install
-   npx prisma migrate dev
-   ```
+```bash
+cd backend
+npm install
+npm run dev       # inicia servidor em http://localhost:3000
+npm test          # executa testes com Jest + Supertest
+npm run build     # transpila os arquivos TypeScript para dist/
+```
 
-3. Inicie a API em modo de desenvolvimento:
+Você pode verificar a rota de monitoramento com `curl http://localhost:3000/healthcheck`.
 
-   ```bash
-   npm run dev
-   ```
+### Variáveis de ambiente
 
-### Autenticação com Auth0 no Backend
+Copie `backend/.env.example` para `.env` (caso exista) e configure conforme o ambiente. As principais variáveis são:
 
-1. Copie o arquivo `.env.example` para `.env` e preencha com as informações do Auth0:
+- `PORT`: porta do servidor HTTP (padrão `3000`).
+- `LOG_LEVEL`: define o nível de log (`debug` ou `info`).
 
-   ```bash
-   cp .env.example .env
-   ```
-
-2. No [Auth0](https://auth0.com/), crie uma API:
-   - **Identifier**: defina o identificador que será usado como `AUTH0_AUDIENCE` (por exemplo, `https://sua-api/`).
-   - **Signing Algorithm**: mantenha como `RS256`.
-
-3. Crie uma aplicação Machine to Machine ou Single Page Application associada à API e autorize-a a consumir a API.
-
-4. Atualize as variáveis de ambiente no `.env`:
-   - `AUTH0_DOMAIN`: o domínio da sua conta Auth0 (ex.: `seu-dominio.auth0.com`).
-   - `AUTH0_AUDIENCE`: o identificador configurado para a API no Auth0.
-   - `PORT` (opcional): porta em que a API irá rodar.
-
-5. A API ficará disponível em `http://localhost:3000` (ou na porta configurada).
-
-#### Rotas protegidas
-
-As seguintes rotas exigem um JWT válido emitido pelo Auth0:
-
-- `GET /courses`
-- `GET /finance-tools`
-- `GET /community`
-- `GET /admin`
-
-Utilize um token com o audience configurado para conseguir acessar essas rotas.
-
-### Frontend Web
+## Frontend Web
 
 ```bash
 cd frontend-web
 npm install
-npm run dev
+npm run dev    # inicia o Vite em http://localhost:5173
+npm test       # executa os testes com Vitest
+npm run build  # gera artefatos de produção em dist/
 ```
 
-### Frontend Mobile
+## Frontend Mobile
 
 ```bash
 cd frontend-mobile
 npm install
-npm start
+npm test   # executa testes com Jest + React Native Testing Library
+npm start  # inicia o Expo
 ```
 
-### Infraestrutura
+Para executar o app em um dispositivo físico ou emulador, utilize os comandos `npm run android`, `npm run ios` ou `npm run web`
+depois de iniciar o Expo.
 
-Para executar todos os serviços com Docker Compose:
+## Pipeline de CI
 
-```bash
-cd infra
-cp .env.example .env
-docker compose up --build
-```
+O workflow em `.github/workflows/ci.yml` é executado em todos os pushes e pull requests. Ele realiza três estágios:
 
-O arquivo `.env` contém as variáveis usadas pelos contêineres. Por padrão ele
-configura um banco PostgreSQL local, as credenciais de autenticação do Auth0 e
-as chaves de integração com a API de pagamentos. Ajuste os valores conforme o
-ambiente que estiver utilizando.
+1. **install** – instala dependências para backend, frontend-web e frontend-mobile garantindo que os manifests estão
+   consistentes.
+2. **test** – executa `npm test` nos três projetos.
+3. **build** – compila o backend (`npm run build`) e gera o bundle web (`npm run build` em `frontend-web`).
+
+O pipeline utiliza `actions/setup-node` com Node.js 18. Estenda o workflow conforme necessário para publicar artefatos ou
+imagens Docker.
+
+## Infraestrutura
+
+O diretório `infra/` pode ser utilizado para armazenar scripts de provisionamento, manifests de Docker Compose e outros
+recursos auxiliares. Ajuste as variáveis de ambiente conforme o ambiente que estiver utilizando.
