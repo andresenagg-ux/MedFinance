@@ -1,5 +1,5 @@
 const Hero = () => (
-  <header className="hero">
+  <section className="hero">
     <div className="container">
       <h1>MedFinance</h1>
       <p>
@@ -10,7 +10,7 @@ const Hero = () => (
         Conheça nossos recursos
       </a>
     </div>
-  </header>
+  </section>
 );
 
 export default Hero;

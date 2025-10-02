@@ -1,14 +1,46 @@
 :root {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: #f8fafc;
-  color: #0f172a;
+  color-scheme: light;
+  --color-background: #f8fafc;
+  --color-text: #0f172a;
+  --color-muted: #475569;
+  --color-hero-background: linear-gradient(135deg, #1d4ed8 0%, #22d3ee 100%);
+  --color-hero-text: #ffffff;
+  --color-card-background: #ffffff;
+  --color-card-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  --color-cta-background: #0f172a;
+  --color-cta-text: #ffffff;
+  --color-header-border: rgba(15, 23, 42, 0.08);
+  --color-toggle-background: rgba(15, 23, 42, 0.08);
+  --color-toggle-icon: #0f172a;
 }
 
-body,
+html.dark {
+  color-scheme: dark;
+  --color-background: #0f172a;
+  --color-text: #e2e8f0;
+  --color-muted: #94a3b8;
+  --color-hero-background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+  --color-hero-text: #f8fafc;
+  --color-card-background: #1f2937;
+  --color-card-shadow: 0 20px 50px rgba(15, 23, 42, 0.4);
+  --color-cta-background: #e2e8f0;
+  --color-cta-text: #0f172a;
+  --color-header-border: rgba(148, 163, 184, 0.3);
+  --color-toggle-background: rgba(148, 163, 184, 0.2);
+  --color-toggle-icon: #f8fafc;
+}
+
 html,
+body,
 #root {
   margin: 0;
   min-height: 100%;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 .app {
@@ -23,9 +55,70 @@ html,
   padding: 0 1.5rem;
 }
 
+.site-header {
+  border-bottom: 1px solid var(--color-header-border);
+  background-color: var(--color-background);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: var(--color-toggle-background);
+  color: var(--color-toggle-icon);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.theme-toggle__icon {
+  font-size: 1.25rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .hero {
-  background: linear-gradient(135deg, #1d4ed8 0%, #22d3ee 100%);
-  color: white;
+  background: var(--color-hero-background);
+  color: var(--color-hero-text);
   padding: 4rem 0 6rem;
 }
 
@@ -39,14 +132,15 @@ html,
   line-height: 1.6;
   margin-bottom: 2rem;
   max-width: 48ch;
+  color: var(--color-hero-text);
 }
 
 .cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #0f172a;
-  color: white;
+  background-color: var(--color-cta-background);
+  color: var(--color-cta-text);
   border-radius: 999px;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
@@ -61,6 +155,7 @@ html,
 
 .features {
   padding-bottom: 6rem;
+  color: var(--color-text);
 }
 
 .features h2 {
@@ -76,10 +171,10 @@ html,
 }
 
 .feature-card {
-  background-color: white;
+  background-color: var(--color-card-background);
   border-radius: 1rem;
   padding: 1.75rem;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--color-card-shadow);
   transition: transform 0.2s ease;
 }
 
@@ -95,4 +190,5 @@ html,
 .feature-card p {
   margin: 0;
   line-height: 1.6;
+  color: var(--color-muted);
 }
