@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedFinance - Progresso</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Acompanhamento de Progresso</h1>
+      <div class="user-selector">
+        <label for="userIdInput">Usuário:</label>
+        <input type="number" id="userIdInput" min="1" value="1" />
+        <button id="reloadButton">Atualizar</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="coursesContainer" class="courses"></section>
+      <div id="errorMessage" class="hidden"></div>
+    </main>
+
+    <template id="courseTemplate">
+      <article class="course-card">
+        <h2 class="course-title"></h2>
+        <div class="progress-wrapper">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <span class="progress-label"></span>
+        </div>
+        <ul class="lessons"></ul>
+      </article>
+    </template>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
