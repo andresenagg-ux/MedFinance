@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "MedFinance",
+    "slug": "medfinance",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "jsEngine": "hermes",
+    "sdkVersion": "51.0.0"
+  }
+}
