@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light dark;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
+}
+
+.description {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #cbd5f5;
+}
+
+.modules details {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.2rem;
+}
+
+summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  gap: 1rem;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.modules ul {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modules li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.modules li div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lesson-order {
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.lesson-title {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+
+.lesson-info a {
+  color: #34d399;
+  text-decoration: none;
+}
+
+.lesson-info a:hover {
+  text-decoration: underline;
+}
+
+.duration {
+  font-weight: 500;
+  color: #fbbf24;
+}
+
+.error {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
