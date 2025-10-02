@@ -1,0 +1,92 @@
+:root {
+  color-scheme: light dark;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #0e7490, #0f172a);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f8fafc;
+}
+
+.container {
+  background-color: rgba(15, 23, 42, 0.85);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 12px 30px rgba(8, 47, 73, 0.4);
+  width: min(90vw, 600px);
+}
+
+form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+label {
+  flex: 1 1 100%;
+  font-weight: 600;
+}
+
+select,
+button {
+  border-radius: 8px;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+}
+
+select {
+  flex: 1 1 200px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #14b8a6;
+  color: #0f172a;
+  font-weight: 700;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover,
+button:focus {
+  background-color: #0ea5e9;
+  transform: translateY(-1px);
+}
+
+.feedback {
+  min-height: 24px;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.courses {
+  display: grid;
+  gap: 16px;
+}
+
+.course-card {
+  background-color: rgba(15, 118, 110, 0.2);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.course-card h2 {
+  margin-top: 0;
+}
+
+.course-card p {
+  margin: 8px 0;
+}
+
+.course-card .duration {
+  font-weight: 600;
+  color: #38bdf8;
+}

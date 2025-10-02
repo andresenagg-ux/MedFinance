@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedFinance - Conteúdos por Perfil</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Conteúdos MedFinance</h1>
+      <p>Selecione um perfil para visualizar cursos recomendados.</p>
+      <form id="profile-form">
+        <label for="profile-select">Perfil</label>
+        <select id="profile-select" name="profile">
+          <option value="estudante">Estudante</option>
+          <option value="recem-formado">Recém-formado</option>
+          <option value="especialista">Especialista</option>
+        </select>
+        <button type="submit">Buscar cursos</button>
+      </form>
+      <section id="feedback" class="feedback" aria-live="polite"></section>
+      <section id="courses" class="courses" aria-live="polite"></section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
