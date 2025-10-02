@@ -1,7 +1,36 @@
-*.ai filter=lfs diff=lfs merge=lfs -text
-*.fig filter=lfs diff=lfs merge=lfs -text
+# --- Texto (código, configs) ---
+*.js     text eol=lf
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.env*   text eol=lf
+
+# --- Imagens (usar LFS) ---
 *.png filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.svg filter=lfs diff=lfs merge=lfs -text
+
+# --- Documentos (usar LFS) ---
 *.pdf filter=lfs diff=lfs merge=lfs -text
 *.docx filter=lfs diff=lfs merge=lfs -text
+*.pptx filter=lfs diff=lfs merge=lfs -text
+*.xlsx filter=lfs diff=lfs merge=lfs -text
+
+# --- Arquivos de design ---
 *.psd filter=lfs diff=lfs merge=lfs -text
+*.ai  filter=lfs diff=lfs merge=lfs -text
+*.fig filter=lfs diff=lfs merge=lfs -text
+
+# --- Binários de app (NÃO versionar builds prontos) ---
+*.apk   binary
+*.aab   binary
+*.ipa   binary
+
+# --- Dependências (sempre ignorar) ---
+node_modules/* -diff
+*.lock text eol=lf
