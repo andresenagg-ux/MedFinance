@@ -6,6 +6,7 @@ que garante que todos os projetos continuam compilando e com testes verdes.
 
 ## Estrutura do repositório
 
+- `package.json`: arquivo de workspaces que permite rodar scripts globais como `npm test` e `npm run build` na raiz.
 - `backend/`: API em Node.js + Express escrita em TypeScript com rotas básicas e camada de serviço de usuários.
 - `frontend-web/`: aplicação web React (Vite) com página institucional e testes usando React Testing Library + Vitest.
 - `frontend-mobile/`: aplicativo React Native com Expo e testes usando React Native Testing Library.
@@ -16,6 +17,17 @@ que garante que todos os projetos continuam compilando e com testes verdes.
 - Node.js 18+
 - npm 9+
 - (Opcional) Expo CLI (`npm install -g expo-cli`) para executar o app mobile em dispositivos/simuladores.
+
+## Scripts globais
+
+O repositório utiliza workspaces do npm para facilitar comandos que englobam todos os projetos. Alguns exemplos a partir da raiz:
+
+```bash
+npm test      # executa os testes de backend, frontend web e mobile
+npm run build # compila backend e frontend web
+```
+
+Para desenvolver localmente, execute os scripts `npm run dev` em cada workspace individualmente.
 
 ## Backend
 
