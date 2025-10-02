@@ -1,0 +1,19 @@
+{
+  "name": "medfinance-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepositório da plataforma MedFinance com backend, frontend web e aplicativo mobile.",
+  "workspaces": [
+    "backend",
+    "frontend-web",
+    "frontend-mobile"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "build": "npm run build --workspace backend && npm run build --workspace frontend-web",
+    "dev": "echo 'Execute os servidores individuais com npm run dev em cada workspace.'",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "npm run format --workspaces --if-present",
+    "ci": "npm run test && npm run build"
+  }
+}
