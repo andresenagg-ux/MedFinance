@@ -1,8 +1,10 @@
+export type UserRole = 'admin' | 'student';
+
 export type User = {
   id: string;
   name: string;
   email: string;
-  role: 'admin' | 'student';
+  role: UserRole;
 };
 
 const users: User[] = [
