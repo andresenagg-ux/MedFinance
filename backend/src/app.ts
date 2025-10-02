@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import { env } from './config/env';
+import { router as contentRouter } from './routes/content';
 import { router as userRouter } from './routes/users';
 
 export function createApp() {
@@ -16,6 +17,7 @@ export function createApp() {
   });
 
   app.use('/users', userRouter);
+  app.use('/content', contentRouter);
 
   app.use((req, res) => {
     res.status(404).json({ message: `Route ${req.method} ${req.path} not found` });

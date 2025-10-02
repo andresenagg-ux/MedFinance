@@ -69,6 +69,48 @@ html,
   margin-bottom: 2.5rem;
 }
 
+.feature-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  font-weight: 500;
+}
+
+.profile-selector select {
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.profile-selector select:focus {
+  outline: none;
+}
+
+.status-message {
+  text-align: center;
+  color: #475569;
+  margin: 1.5rem 0;
+}
+
+.status-message.error {
+  color: #dc2626;
+}
+
 .grid {
   display: grid;
   gap: 1.5rem;
