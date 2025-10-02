@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedFinance Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="sha512-Oi0quWS4YLBwSUSrUXuLBk8U7WCHdazgFLOizk58kVz25w+JzZLNmNt4leyTjgCKTOoTS7/OrclVj0O1Yz7x8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <header>
+      <h1>MedFinance - Visão Geral</h1>
+      <p>Monitoramento simplificado das finanças dos profissionais de saúde.</p>
+    </header>
+
+    <main>
+      <section class="cards" id="totals"></section>
+
+      <section class="chart" id="pie-chart">
+        <h2>Distribuição 50/30/20</h2>
+        <svg></svg>
+      </section>
+
+      <section class="chart" id="line-chart">
+        <h2>Evolução do Saldo Mensal</h2>
+        <svg></svg>
+      </section>
+    </main>
+
+    <footer>
+      <small>Dados simulados para fins educacionais.</small>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
