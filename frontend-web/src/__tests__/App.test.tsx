@@ -15,4 +15,13 @@ describe('App', () => {
     const cards = screen.getAllByRole('heading', { level: 3 });
     expect(cards).toHaveLength(3);
   });
+
+  it('renders the financial dashboard with key metrics', () => {
+    render(<App />);
+
+    expect(screen.getByRole('heading', { level: 2, name: /dashboard financeiro/i })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /evolução das receitas e despesas mensais/i })).toBeInTheDocument();
+    expect(screen.getByText(/Receita acumulada/i)).toBeInTheDocument();
+    expect(screen.getByText(/Lucro líquido/i)).toBeInTheDocument();
+  });
 });
