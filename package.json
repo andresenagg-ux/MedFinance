@@ -1,0 +1,17 @@
+{
+  "name": "medfinance-backend",
+  "version": "1.0.0",
+  "description": "API backend for MedFinance financial simulator.",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
