@@ -4,6 +4,7 @@ frontend-web/node_modules/
 frontend-mobile/node_modules/
 web/node_modules/
 mobile/node_modules/
+backend/data/
 
 dist/
 backend/build/
