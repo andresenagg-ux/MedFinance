@@ -21,4 +21,19 @@ describe('MedFinance API', () => {
       ]),
     );
   });
+
+  it('exposes the OpenAPI documentation', async () => {
+    const response = await request(app).get('/docs.json');
+
+    expect(response.status).toBe(200);
+    expect(response.headers['content-type']).toContain('application/json');
+    expect(response.body).toMatchObject({
+      openapi: '3.1.0',
+      info: expect.objectContaining({ title: 'MedFinance API' }),
+      paths: expect.objectContaining({
+        '/users': expect.any(Object),
+        '/healthcheck': expect.any(Object),
+      }),
+    });
+  });
 });

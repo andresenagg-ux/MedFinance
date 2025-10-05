@@ -2,6 +2,8 @@ import cors from 'cors';
 import express from 'express';
 import { env } from './config/env';
 import { logger } from './config/logger';
+import { swaggerDocument } from './config/swagger';
+import swaggerUi from 'swagger-ui-express';
 import { requestLogger } from './middlewares/requestLogger';
 import { router as userRouter } from './routes/users';
 
@@ -11,6 +13,16 @@ export function createApp() {
   app.use(cors());
   app.use(express.json());
   app.use(requestLogger);
+
+  const swaggerUiMiddleware = swaggerUi.serve as unknown as express.RequestHandler[];
+  const swaggerUiHandler = swaggerUi.setup(swaggerDocument, { explorer: true }) as unknown as express.RequestHandler;
+
+  app.use('/docs', ...swaggerUiMiddleware);
+  app.get('/docs', swaggerUiHandler);
+  app.get('/docs.json', (_req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerDocument);
+  });
 
   app.get('/healthcheck', (_req, res) => {
     res.json({ status: 'ok' });
