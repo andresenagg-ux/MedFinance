@@ -24,19 +24,21 @@ export function createApp() {
     res.status(404).json({ message });
   });
 
-  app.use((error: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    logger.error('Unhandled error while processing request', {
-      method: req.method,
-      path: req.path,
-      error: {
-        name: error.name,
-        message: error.message,
-        stack: env.NODE_ENV !== 'production' ? error.stack : undefined,
-      },
-    });
+  app.use(
+    (error: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+      logger.error('Unhandled error while processing request', {
+        method: req.method,
+        path: req.path,
+        error: {
+          name: error.name,
+          message: error.message,
+          stack: env.NODE_ENV !== 'production' ? error.stack : undefined,
+        },
+      });
 
-    res.status(500).json({ message: 'Internal server error' });
-  });
+      res.status(500).json({ message: 'Internal server error' });
+    },
+  );
 
   return app;
 }

@@ -9,7 +9,7 @@ export function requestLogger(req: Request, res: Response, next: NextFunction) {
     const contentLengthHeader = res.getHeader('content-length');
     const contentLength = Array.isArray(contentLengthHeader)
       ? contentLengthHeader.join(',')
-      : contentLengthHeader ?? undefined;
+      : (contentLengthHeader ?? undefined);
 
     logger.info('HTTP request completed', {
       method: req.method,
