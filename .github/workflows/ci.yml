@@ -5,68 +5,41 @@ on:
     branches: ['**']
   pull_request:
 
+env:
+  NODE_VERSION: 18
+
 jobs:
-  install:
-    name: Install dependencies
+  quality-checks:
+    name: ${{ matrix.project }} checks
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [backend, frontend-web, frontend-mobile]
+        include:
+          - project: backend
+            test_command: npm test -- --runInBand
+            build_command: npm run build
+          - project: frontend-web
+            test_command: npm test
+            build_command: npm run build
+          - project: frontend-mobile
+            test_command: npm test -- --runInBand
+            build_command: ''
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: ${{ matrix.project }}/package-lock.json
-      - name: Install
+      - name: Install dependencies
         working-directory: ${{ matrix.project }}
-        run: npm install
-
-  test:
-    name: Run tests
-    needs: install
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - project: backend
-            command: npm test -- --runInBand
-          - project: frontend-web
-            command: npm test
-          - project: frontend-mobile
-            command: npm test -- --runInBand
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - name: Install
+        run: npm ci
+      - name: Run tests
         working-directory: ${{ matrix.project }}
-        run: npm install
-      - name: Test
-        working-directory: ${{ matrix.project }}
-        run: ${{ matrix.command }}
-
-  build:
-    name: Build apps
-    needs: test
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - project: backend
-            command: npm run build
-          - project: frontend-web
-            command: npm run build
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - name: Install
-        working-directory: ${{ matrix.project }}
-        run: npm install
+        env:
+          CI: true
+        run: ${{ matrix.test_command }}
       - name: Build
+        if: ${{ matrix.build_command != '' }}
         working-directory: ${{ matrix.project }}
-        run: ${{ matrix.command }}
+        run: ${{ matrix.build_command }}
