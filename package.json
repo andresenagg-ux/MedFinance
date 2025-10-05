@@ -1,0 +1,25 @@
+{
+  "name": "medfinance-api",
+  "version": "1.0.0",
+  "description": "API do MedFinance com documentação Swagger",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "medfinance",
+    "api",
+    "swagger",
+    "documentation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "swagger-ui-express": "^4.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
