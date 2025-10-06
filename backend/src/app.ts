@@ -8,6 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import { requestLogger } from './middlewares/requestLogger';
 import { router as userRouter } from './routes/users';
 import { router as investmentRouter } from './routes/investments';
+import { router as videoRouter } from './routes/videos';
 
 export function createApp() {
   const app = express();
@@ -54,6 +55,7 @@ export function createApp() {
 
   app.use('/users', userRouter);
   app.use('/investments', investmentRouter);
+  app.use('/videos', videoRouter);
 
   app.use((req, res) => {
     const message = `Route ${req.method} ${req.path} not found`;

@@ -68,6 +68,8 @@ describe('MedFinance API', () => {
         '/users': expect.any(Object),
         '/healthcheck': expect.any(Object),
         '/investments/cdi': expect.any(Object),
+        '/videos': expect.any(Object),
+        '/videos/upload': expect.any(Object),
       }),
     });
   });
