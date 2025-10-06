@@ -8,6 +8,7 @@ mobile/node_modules/
 dist/
 backend/build/
 frontend-web/dist/
+cli/dist/
 
 *.log
 npm-debug.log*
