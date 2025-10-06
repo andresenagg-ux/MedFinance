@@ -1,5 +1,6 @@
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import express from 'express';
+import helmet from 'helmet';
 import { env } from './config/env';
 import { logger } from './config/logger';
 import { swaggerDocument } from './config/swagger';
@@ -10,7 +11,29 @@ import { router as userRouter } from './routes/users';
 export function createApp() {
   const app = express();
 
-  app.use(cors());
+  const allowedOrigins = env.CORS_ALLOWED_ORIGINS;
+
+  const corsOptions: CorsOptions = {
+    origin(origin, callback) {
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      const shouldAllowAllOrigins = allowedOrigins.includes('*');
+
+      if (shouldAllowAllOrigins || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      logger.warn('Blocked request from disallowed origin', { origin });
+
+      return callback(null, false);
+    },
+    optionsSuccessStatus: 204,
+  };
+
+  app.use(helmet());
+  app.use(cors(corsOptions));
   app.use(express.json());
   app.use(requestLogger);
 
