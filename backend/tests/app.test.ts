@@ -11,6 +11,28 @@ describe('MedFinance API', () => {
     expect(response.body).toEqual({ status: 'ok' });
   });
 
+  it('applies security headers using helmet', async () => {
+    const response = await request(app).get('/healthcheck');
+
+    expect(response.headers['x-dns-prefetch-control']).toBe('off');
+    expect(response.headers['x-frame-options']).toBe('SAMEORIGIN');
+    expect(response.headers['x-content-type-options']).toBe('nosniff');
+  });
+
+  it('allows requests from configured origins using CORS', async () => {
+    const response = await request(app).get('/healthcheck').set('Origin', 'http://localhost:3000');
+
+    expect(response.status).toBe(200);
+    expect(response.headers['access-control-allow-origin']).toBe('http://localhost:3000');
+  });
+
+  it('blocks requests from origins not in the allowed list', async () => {
+    const response = await request(app).get('/healthcheck').set('Origin', 'https://malicious.example.com');
+
+    expect(response.status).toBe(200);
+    expect(response.headers['access-control-allow-origin']).toBeUndefined();
+  });
+
   it('lists demo users', async () => {
     const response = await request(app).get('/users');
 
