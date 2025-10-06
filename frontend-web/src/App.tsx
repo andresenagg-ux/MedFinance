@@ -1,6 +1,7 @@
 import Hero from './components/Hero';
 import FeatureGrid from './components/FeatureGrid';
 import FinancialDashboard from './components/FinancialDashboard';
+import InvestmentPlanner from './components/InvestmentPlanner';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Hero />
       <FeatureGrid />
       <FinancialDashboard />
+      <InvestmentPlanner />
     </div>
   );
 }
