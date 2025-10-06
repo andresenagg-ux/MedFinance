@@ -15,6 +15,10 @@
     "dev": "echo 'Execute os servidores individuais com npm run dev em cada workspace.'",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
-    "ci": "npm run test && npm run build"
+    "ci": "npm run test && npm run build",
+    "changelog": "auto-changelog --commit-limit false --sort-commits date-desc"
+  },
+  "devDependencies": {
+    "auto-changelog": "^2.5.0"
   }
 }
