@@ -23,6 +23,10 @@ export const swaggerDocument = {
       name: 'Users',
       description: 'Endpoints that manage or retrieve user information.',
     },
+    {
+      name: 'Investments',
+      description: 'Endpoints that provide investment-related information.',
+    },
   ],
   paths: {
     '/healthcheck': {
@@ -72,6 +76,109 @@ export const swaggerDocument = {
                       items: {
                         $ref: '#/components/schemas/User',
                       },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    '/investments/cdi': {
+      get: {
+        tags: ['Investments'],
+        summary: 'Retrieves the latest CDI rate.',
+        description:
+          'Fetches the most recent CDI (Certificado de Depósito Interbancário) annual rate published by the Banco Central do Brasil and, optionally, estimates the profit of an investment held for one year.',
+        parameters: [
+          {
+            in: 'query',
+            name: 'amount',
+            description: 'Investment amount in BRL used to project the profit after one year at the current CDI rate.',
+            required: false,
+            schema: {
+              type: 'number',
+              example: 10000,
+              minimum: 0,
+            },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Latest CDI rate and optional investment projection.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['date', 'annualRate'],
+                  properties: {
+                    date: {
+                      type: 'string',
+                      format: 'date',
+                      description: 'Date of the CDI rate informed by Banco Central do Brasil.',
+                      example: '2025-10-03',
+                    },
+                    annualRate: {
+                      type: 'number',
+                      description: 'Annual CDI rate percentage.',
+                      example: 13.65,
+                    },
+                    investmentProjection: {
+                      type: 'object',
+                      description: 'Projection for an investment kept for one year using the CDI rate.',
+                      required: ['principal', 'profitAfterOneYear', 'finalAmountAfterOneYear'],
+                      properties: {
+                        principal: {
+                          type: 'number',
+                          description: 'Amount invested in BRL.',
+                          example: 10000,
+                        },
+                        profitAfterOneYear: {
+                          type: 'number',
+                          description: 'Estimated profit after one year in BRL.',
+                          example: 1365,
+                        },
+                        finalAmountAfterOneYear: {
+                          type: 'number',
+                          description: 'Projected total amount after one year in BRL.',
+                          example: 11365,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          '400': {
+            description: 'Validation error for the provided query parameters.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['message'],
+                  properties: {
+                    message: {
+                      type: 'string',
+                      example: 'The "amount" query parameter must be a positive number.',
+                    },
+                  },
+                },
+              },
+            },
+          },
+          '502': {
+            description: 'Error returned when the API cannot communicate with Banco Central do Brasil.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['message'],
+                  properties: {
+                    message: {
+                      type: 'string',
+                      example: 'Unable to retrieve CDI rate from Banco Central do Brasil.',
                     },
                   },
                 },
