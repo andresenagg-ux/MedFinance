@@ -104,6 +104,16 @@ O workflow em `.github/workflows/ci.yml` é executado em todos os pushes e pull 
 O pipeline utiliza `actions/setup-node` com Node.js 18. Estenda o workflow conforme necessário para publicar artefatos ou
 imagens Docker.
 
+## Ambientes de Teste
+
+Para suportar um fluxo profissional, o projeto utiliza três ambientes principais:
+
+- **Local de desenvolvimento:** feedback rápido com testes unitários, linters e execução interativa das aplicações.
+- **Integração contínua (CI):** garante que todas as alterações compilam e passam nas suítes automatizadas antes de chegar às branches principais.
+- **Homologação (staging):** replica a produção para validações exploratórias e testes end-to-end antes do deploy definitivo.
+
+Veja o documento [docs/ambientes-de-teste.md](docs/ambientes-de-teste.md) para orientações detalhadas.
+
 ## Infraestrutura
 
 O diretório `infra/` pode ser utilizado para armazenar scripts de provisionamento, manifests de Docker Compose e outros
