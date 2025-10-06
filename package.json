@@ -6,7 +6,8 @@
   "workspaces": [
     "backend",
     "frontend-web",
-    "frontend-mobile"
+    "frontend-mobile",
+    "cli"
   ],
   "scripts": {
     "test": "npm run test --workspaces --if-present",

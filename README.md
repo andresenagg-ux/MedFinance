@@ -10,6 +10,7 @@ que garante que todos os projetos continuam compilando e com testes verdes.
 - `backend/`: API em Node.js + Express escrita em TypeScript com rotas básicas e camada de serviço de usuários.
 - `frontend-web/`: aplicação web React (Vite) com página institucional e testes usando React Testing Library + Vitest.
 - `frontend-mobile/`: aplicativo React Native com Expo e testes usando React Native Testing Library.
+- `cli/`: simulador financeiro disponível via linha de comando com suporte a testes unitários.
 - `.github/workflows/ci.yml`: pipeline de CI com instalação de dependências, testes e builds.
 
 ## Pré-requisitos
@@ -69,6 +70,27 @@ npm start  # inicia o Expo
 
 Para executar o app em um dispositivo físico ou emulador, utilize os comandos `npm run android`, `npm run ios` ou `npm run web`
 depois de iniciar o Expo.
+
+## Simulador CLI
+
+O workspace `cli/` disponibiliza um simulador financeiro que reproduz os cálculos utilizados nas interfaces gráficas, permitindo
+experimentar cenários diretamente no terminal.
+
+```bash
+cd cli
+npm install
+npm run build           # compila o CLI para dist/
+node dist/index.js --help
+node dist/index.js -i 12000 -e 7500 -r 0.1
+```
+
+Também é possível executar o simulador sem compilar utilizando o script `npm run dev`, que utiliza `ts-node-dev` para hot reload,
+e garantir a qualidade com os testes automatizados:
+
+```bash
+npm run dev
+npm test
+```
 
 ## Pipeline de CI
 
