@@ -1,0 +1,36 @@
+- id: first-pr
+  nome: Primeira Pull Request
+  criterio: Concluir e mesclar a primeira PR no repositório
+  recompensa: Badge no README e menção no Slack
+  visibilidade:
+    - tipo: quadro
+      destino: Gamificação
+    - tipo: painel
+      destino: README
+- id: bug-slayer
+  nome: Guardião da Qualidade
+  criterio: Corrigir cinco bugs reportados pela comunidade
+  recompensa: Gift card e destaque na demo semanal
+  visibilidade:
+    - tipo: quadro
+      destino: Gamificação
+    - tipo: discussoes
+      destino: GitHub Discussions
+- id: docs-master
+  nome: Mestre da Documentação
+  criterio: Criar ou atualizar três guias técnicos em uma sprint
+  recompensa: E-book à escolha e badge especial
+  visibilidade:
+    - tipo: quadro
+      destino: Gamificação
+    - tipo: painel
+      destino: README
+- id: automation-hero
+  nome: Herói da Automação
+  criterio: Criar workflow que reduza 30% do tempo da pipeline
+  recompensa: Voucher de cursos e destaque no changelog
+  visibilidade:
+    - tipo: quadro
+      destino: Gamificação
+    - tipo: pr
+      destino: Pull Request
