@@ -31,6 +31,10 @@ export const swaggerDocument = {
       name: 'Videos',
       description: 'Endpoints responsible for managing educational video content.',
     },
+    {
+      name: 'Finance',
+      description: 'Endpoints that provide financial planning simulations.',
+    },
   ],
   paths: {
     '/healthcheck': {
@@ -183,6 +187,128 @@ export const swaggerDocument = {
                     message: {
                       type: 'string',
                       example: 'Unable to retrieve CDI rate from Banco Central do Brasil.',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    '/finance/simulator': {
+      post: {
+        tags: ['Finance'],
+        summary: 'Calculates a financial distribution and savings projection.',
+        description:
+          'Receives income and expense information to estimate the 50/30/20 distribution, savings outlook and potential investment return.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['monthlyIncome'],
+                properties: {
+                  monthlyIncome: {
+                    type: 'number',
+                    minimum: 0,
+                    example: 18000,
+                    description: 'Gross monthly income informed by the professional.',
+                  },
+                  fixedExpenses: {
+                    type: 'number',
+                    minimum: 0,
+                    example: 8000,
+                    description: 'Sum of fixed monthly expenses such as rent, payroll and software.',
+                  },
+                  variableExpenses: {
+                    type: 'number',
+                    minimum: 0,
+                    example: 2500,
+                    description: 'Total of variable or discretionary expenses, for example marketing and events.',
+                  },
+                  monthlyExpenses: {
+                    type: 'number',
+                    minimum: 0,
+                    example: 10500,
+                    description: 'Optional consolidated value for monthly expenses when the breakdown is unavailable.',
+                  },
+                  investmentRate: {
+                    type: 'number',
+                    minimum: 0,
+                    example: 0.1,
+                    description: 'Annual investment return rate expressed as a decimal (0.1 = 10%).',
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '200': {
+            description: 'Simulation calculated successfully.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['finalBalance', 'monthlySavings', 'annualSavings', 'investmentReturn', 'distribution'],
+                  properties: {
+                    finalBalance: {
+                      type: 'number',
+                      example: 5500,
+                      description: 'Net balance after subtracting the provided expenses from the income.',
+                    },
+                    monthlySavings: {
+                      type: 'number',
+                      example: 5500,
+                      description: 'Amount available to save every month after the expenses.',
+                    },
+                    annualSavings: {
+                      type: 'number',
+                      example: 66000,
+                      description: 'Projected savings accumulated after 12 months.',
+                    },
+                    investmentReturn: {
+                      type: 'number',
+                      example: 6600,
+                      description: 'Estimated return applying the informed investment rate over the annual savings.',
+                    },
+                    distribution: {
+                      type: 'object',
+                      description: 'Recommended 50/30/20 distribution for the monthly income.',
+                      required: ['needs', 'wants', 'savings'],
+                      properties: {
+                        needs: {
+                          type: 'number',
+                          example: 9000,
+                        },
+                        wants: {
+                          type: 'number',
+                          example: 5400,
+                        },
+                        savings: {
+                          type: 'number',
+                          example: 3600,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          '400': {
+            description: 'Validation error for the provided payload.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['message'],
+                  properties: {
+                    message: {
+                      type: 'string',
+                      example: 'The "monthlyIncome" field must be a non-negative number.',
                     },
                   },
                 },
