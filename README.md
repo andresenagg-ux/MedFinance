@@ -114,6 +114,15 @@ Para suportar um fluxo profissional, o projeto utiliza três ambientes principai
 
 Veja o documento [docs/ambientes-de-teste.md](docs/ambientes-de-teste.md) para orientações detalhadas.
 
+## Gamificação e troféus
+
+Implemente um sistema de reconhecimento contínuo acompanhando o guia em
+[docs/gamificacao/README.md](docs/gamificacao/README.md). O documento detalha como
+definir troféus, registrar recompensas e expor as conquistas no GitHub via Projects,
+Issues e Actions. Utilize o arquivo de referência
+[docs/gamificacao/trofeus.yml](docs/gamificacao/trofeus.yml) para alimentar dashboards,
+badges no README e automações que destacam o avanço do time.
+
 ## Infraestrutura
 
 O diretório `infra/` pode ser utilizado para armazenar scripts de provisionamento, manifests de Docker Compose e outros
