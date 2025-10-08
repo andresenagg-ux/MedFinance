@@ -9,6 +9,7 @@ import { requestLogger } from './middlewares/requestLogger';
 import { router as userRouter } from './routes/users';
 import { router as investmentRouter } from './routes/investments';
 import { router as videoRouter } from './routes/videos';
+import { handleFinancialSimulation, router as financeRouter } from './routes/finance';
 
 export function createApp() {
   const app = express();
@@ -56,6 +57,8 @@ export function createApp() {
   app.use('/users', userRouter);
   app.use('/investments', investmentRouter);
   app.use('/videos', videoRouter);
+  app.use('/finance', financeRouter);
+  app.post('/api/simulator', handleFinancialSimulation);
 
   app.use((req, res) => {
     const message = `Route ${req.method} ${req.path} not found`;
