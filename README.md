@@ -26,6 +26,7 @@ O repositório utiliza workspaces do npm para facilitar comandos que englobam to
 ```bash
 npm test      # executa os testes de backend, frontend web e mobile
 npm run build # compila backend e frontend web
+npm run changelog # gera CHANGELOG.md agregando commits no formato Keep a Changelog
 ```
 
 Para desenvolver localmente, execute os scripts `npm run dev` em cada workspace individualmente.
