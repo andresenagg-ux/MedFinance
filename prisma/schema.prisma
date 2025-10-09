@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  RECENT_GRAD
+  SPECIALIST
+}
+
+model User {
+  id          Int              @id @default(autoincrement())
+  name        String
+  email       String           @unique
+  role        UserRole
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  progresses  LessonProgress[]
+}
+
+model Course {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  modules     Module[]
+}
+
+model Module {
+  id       Int      @id @default(autoincrement())
+  title    String
+  order    Int
+  course   Course  @relation(fields: [courseId], references: [id])
+  courseId Int
+  lessons  Lesson[]
+}
+
+model Lesson {
+  id          Int              @id @default(autoincrement())
+  title       String
+  description String
+  order       Int
+  module      Module           @relation(fields: [moduleId], references: [id])
+  moduleId    Int
+  progresses  LessonProgress[]
+}
+
+model LessonProgress {
+  id          Int      @id @default(autoincrement())
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  lesson      Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId    Int
+
+  @@unique([userId, lessonId])
+}
