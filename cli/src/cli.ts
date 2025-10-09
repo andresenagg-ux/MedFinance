@@ -1,11 +1,11 @@
-import { Command, InvalidArgumentError } from 'commander';
+import { Command, InvalidOptionArgumentError } from 'commander';
 import { buildSimulationSummary, calculateSimulation, SimulationInput, SimulationResult } from './simulation';
 
 function parseNumber(value: string, field: string): number {
   const parsed = Number(value);
 
   if (!Number.isFinite(parsed)) {
-    throw new InvalidArgumentError(`O valor informado para ${field} deve ser numérico.`);
+    throw new InvalidOptionArgumentError(`O valor informado para ${field} deve ser numérico.`);
   }
 
   return parsed;
@@ -77,17 +77,24 @@ export async function runCli(argv: string[], io?: CliIO): Promise<number> {
   try {
     await program.parseAsync(argv, { from: 'user' });
     return 0;
-  } catch (error) {
-    if (error instanceof InvalidArgumentError) {
-      streams.stderr.write(`${error.message}\n`);
+  } catch (error: unknown) {
+    if (error instanceof InvalidOptionArgumentError) {
+      const invalidArgumentError = error as InvalidOptionArgumentError;
+      streams.stderr.write(`${invalidArgumentError.message}\n`);
       return 1;
     }
 
     if (error && typeof error === 'object' && 'exitCode' in error) {
-      return (error as { exitCode?: number }).exitCode ?? 1;
+      const { exitCode } = error as { exitCode?: number };
+      if (typeof exitCode === 'number') {
+        return exitCode;
+      }
+
+      return 1;
     }
 
-    streams.stderr.write(`${(error as Error).message}\n`);
+    const message = error instanceof Error ? error.message : 'Ocorreu um erro inesperado.';
+    streams.stderr.write(`${message}\n`);
     return 1;
   }
 }
