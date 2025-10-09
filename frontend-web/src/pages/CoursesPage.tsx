@@ -353,6 +353,7 @@ const CoursesPage = () => {
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [uploadMessage, setUploadMessage] = useState('');
   const coursesListRef = useRef<HTMLElement | null>(null);
+  const flowSectionRef = useRef<HTMLElement | null>(null);
 
   const filteredCourses = useMemo(() => {
     if (selectedTrack === 'all') {
@@ -374,11 +375,16 @@ const CoursesPage = () => {
   );
 
   useEffect(() => {
-    const [firstSection] = flows[activeFlowTrack].sections;
-    if (firstSection) {
-      setActiveFlowSection(firstSection.id);
+    const flowSections = flows[activeFlowTrack].sections;
+    const hasCurrentSection = flowSections.some((section) => section.id === activeFlowSection);
+
+    if (!hasCurrentSection) {
+      const [firstSection] = flowSections;
+      if (firstSection) {
+        setActiveFlowSection(firstSection.id);
+      }
     }
-  }, [activeFlowTrack]);
+  }, [activeFlowTrack, activeFlowSection]);
 
   useEffect(() => {
     if (!selectedCourseId) {
@@ -410,6 +416,23 @@ const CoursesPage = () => {
 
     setSelectedTrack(course.category);
     setSelectedCourseId(course.id);
+
+    if (course.category !== 'all') {
+      const flow = flows[course.category];
+      const focusSection = flow.sections.find((section) => section.focusCourses.includes(course.id));
+
+      setActiveFlowTrack(course.category);
+
+      if (focusSection) {
+        setActiveFlowSection(focusSection.id);
+      }
+    }
+
+    if (typeof window !== 'undefined' && flowSectionRef.current) {
+      window.requestAnimationFrame(() => {
+        flowSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   };
 
   const handleVideoUpload = async (event: FormEvent<HTMLFormElement>) => {
@@ -619,7 +642,7 @@ const CoursesPage = () => {
         </div>
       </section>
 
-      <section className="courses-flow" aria-labelledby="flow-heading">
+      <section className="courses-flow" aria-labelledby="flow-heading" ref={flowSectionRef}>
         <div className="container">
           <header className="courses-flow__header">
             <h2 id="flow-heading">Construa a jornada completa até seu próximo curso</h2>
