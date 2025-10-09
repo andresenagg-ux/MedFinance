@@ -410,6 +410,20 @@ const CoursesPage = () => {
 
     setSelectedTrack(course.category);
     setSelectedCourseId(course.id);
+
+    const flowTrack = course.category as FlowTrackId;
+    setActiveFlowTrack(flowTrack);
+
+    const flow = flows[flowTrack];
+    const sectionContainingCourse = flow.sections.find((section) =>
+      section.focusCourses.includes(course.id)
+    );
+
+    if (sectionContainingCourse) {
+      setActiveFlowSection(sectionContainingCourse.id);
+    } else if (flow.sections[0]) {
+      setActiveFlowSection(flow.sections[0].id);
+    }
   };
 
   const handleVideoUpload = async (event: FormEvent<HTMLFormElement>) => {
