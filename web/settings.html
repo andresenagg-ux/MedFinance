@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedFinance - Configurações</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Configurações de Privacidade</h1>
+      <nav>
+        <a href="index.html">Voltar ao início</a>
+      </nav>
+    </header>
+
+    <main class="content">
+      <section>
+        <h2>Consentimento para uso de dados</h2>
+        <p>
+          O MedFinance utiliza informações de uso para oferecer conteúdos
+          personalizados, gerar recomendações financeiras e cumprir obrigações
+          regulatórias. Você pode revogar o consentimento quando desejar. Ao
+          revogar, alguns recursos personalizados podem ficar indisponíveis.
+        </p>
+        <div class="card">
+          <p id="consent-status" class="status">Carregando...</p>
+          <div class="consent-actions">
+            <button id="revoke-button" class="secondary">Revogar consentimento</button>
+            <button id="accept-again" class="primary">Aceitar novamente</button>
+          </div>
+          <div id="status-message" class="alert hidden"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="scripts/settings.js"></script>
+  </body>
+</html>

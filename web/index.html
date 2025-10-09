@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedFinance - Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>MedFinance</h1>
+      <nav>
+        <a href="settings.html">Configurações</a>
+      </nav>
+    </header>
+
+    <main class="content">
+      <h2>Bem-vindo ao MedFinance</h2>
+      <p>
+        Centralize seus aprendizados financeiros e acompanhe a evolução do seu
+        consultório com painéis personalizados e dicas criadas para a rotina
+        médica.
+      </p>
+    </main>
+
+    <div id="consent-banner" class="consent-banner hidden" role="dialog" aria-modal="true" aria-labelledby="consent-title">
+      <div class="consent-container">
+        <h2 id="consent-title">Nós valorizamos sua privacidade</h2>
+        <p>
+          Utilizamos dados de navegação para personalizar conteúdos, aprimorar
+          nossos serviços e cumprir exigências legais. Você pode revogar o
+          consentimento a qualquer momento nas configurações.
+        </p>
+        <div class="consent-actions">
+          <button id="accept-consent" class="primary">Aceitar</button>
+          <button id="manage-consent" class="secondary">Gerenciar preferências</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="preferences-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="preferences-title">
+      <div class="modal">
+        <button id="close-preferences" class="close-button" aria-label="Fechar">×</button>
+        <h2 id="preferences-title">Gerenciar preferências de dados</h2>
+        <p>
+          Escolha como o MedFinance pode usar seus dados. A coleta é utilizada
+          para análises e recomendações financeiras mais assertivas. Você pode
+          atualizar suas decisões sempre que desejar em Configurações.
+        </p>
+        <form id="preferences-form">
+          <label class="toggle">
+            <input type="checkbox" id="analytics-consent" />
+            <span>
+              Permitir coleta para análises e recomendações personalizadas
+            </span>
+          </label>
+          <div class="modal-actions">
+            <button type="submit" class="primary">Salvar preferências</button>
+            <a href="settings.html" class="link-button">Ir para Configurações</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="scripts/consent.js"></script>
+  </body>
+</html>
