@@ -10,6 +10,7 @@ import { router as userRouter } from './routes/users';
 import { router as investmentRouter } from './routes/investments';
 import { router as videoRouter } from './routes/videos';
 import { handleFinancialSimulation, router as financeRouter } from './routes/finance';
+import { router as integrationRouter } from './routes/integrations';
 
 export function createApp() {
   const app = express();
@@ -58,6 +59,7 @@ export function createApp() {
   app.use('/investments', investmentRouter);
   app.use('/videos', videoRouter);
   app.use('/finance', financeRouter);
+  app.use('/integrations', integrationRouter);
   app.post('/api/simulator', handleFinancialSimulation);
 
   app.use((req, res) => {
