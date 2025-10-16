@@ -7,6 +7,7 @@ mobile/node_modules/
 
 dist/
 backend/build/
+backend/dist/
 frontend-web/dist/
 cli/dist/
 

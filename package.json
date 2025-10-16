@@ -13,6 +13,11 @@
     "test": "npm run test --workspaces --if-present",
     "build": "npm run build --workspace backend && npm run build --workspace frontend-web",
     "dev": "echo 'Execute os servidores individuais com npm run dev em cada workspace.'",
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:frontend-web": "npm run dev --workspace frontend-web",
+    "dev:frontend-mobile": "npm run start --workspace frontend-mobile",
+    "dev:cli": "npm run dev --workspace cli",
+    "start:backend": "npm run start --workspace backend",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
     "ci": "npm run test && npm run build"
