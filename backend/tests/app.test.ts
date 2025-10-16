@@ -5,6 +5,7 @@ import { cdiService } from '../src/services/cdiService';
 jest.mock('../src/services/cdiService', () => ({
   cdiService: {
     getLatestRate: jest.fn(),
+    getRealTimeRate: jest.fn(),
   },
 }));
 
@@ -14,6 +15,7 @@ describe('MedFinance API', () => {
 
   beforeEach(() => {
     mockedCdiService.getLatestRate.mockReset();
+    mockedCdiService.getRealTimeRate.mockReset();
   });
 
   it('returns ok on /healthcheck', async () => {
@@ -68,6 +70,7 @@ describe('MedFinance API', () => {
         '/users': expect.any(Object),
         '/healthcheck': expect.any(Object),
         '/investments/cdi': expect.any(Object),
+        '/investments/cdi/realtime': expect.any(Object),
         '/videos': expect.any(Object),
         '/videos/upload': expect.any(Object),
       }),
@@ -90,6 +93,62 @@ describe('MedFinance API', () => {
       },
     });
     expect(mockedCdiService.getLatestRate).toHaveBeenCalledTimes(1);
+  });
+
+  it('calculates the real-time CDI metrics and investment projection', async () => {
+    mockedCdiService.getRealTimeRate.mockResolvedValue({
+      asOf: '2025-10-03T17:45:30.000Z',
+      localDateTime: '2025-10-03T14:45:30',
+      timeZone: 'America/Sao_Paulo',
+      date: '2025-10-03',
+      cdiPercentage: 100,
+      annualRate: 13.65,
+      dailyRate: 0.52,
+      dailyFactor: 1.0052,
+      accruedRate: 0.21,
+      accruedFactor: 1.0021,
+      perSecondRate: 0.000006,
+      perSecondFactor: 1.00000006,
+      elapsedBusinessSeconds: 53130,
+      secondsInBusinessDay: 86400,
+    });
+
+    const response = await request(app).get('/investments/cdi/realtime').query({ amount: 20000 });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      asOf: '2025-10-03T17:45:30.000Z',
+      localDateTime: '2025-10-03T14:45:30',
+      timeZone: 'America/Sao_Paulo',
+      date: '2025-10-03',
+      cdiPercentage: 100,
+      annualRate: 13.65,
+      dailyRate: 0.52,
+      dailyFactor: 1.0052,
+      accruedRate: 0.21,
+      accruedFactor: 1.0021,
+      perSecondRate: 0.000006,
+      perSecondFactor: 1.00000006,
+      elapsedBusinessSeconds: 53130,
+      secondsInBusinessDay: 86400,
+      investmentProjection: {
+        principal: 20000,
+        accruedProfit: 42,
+        finalAmount: 20042,
+        factorApplied: 1.0021,
+      },
+    });
+    expect(mockedCdiService.getRealTimeRate).toHaveBeenCalledTimes(1);
+  });
+
+  it('validates the investment amount parameter on the real-time CDI endpoint', async () => {
+    const response = await request(app).get('/investments/cdi/realtime').query({ amount: '0' });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({
+      message: 'The "amount" query parameter must be a positive number.',
+    });
+    expect(mockedCdiService.getRealTimeRate).not.toHaveBeenCalled();
   });
 
   it('validates the investment amount parameter', async () => {

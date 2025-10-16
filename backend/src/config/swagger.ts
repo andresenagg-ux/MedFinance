@@ -196,6 +196,189 @@ export const swaggerDocument = {
         },
       },
     },
+    '/investments/cdi/realtime': {
+      get: {
+        tags: ['Investments'],
+        summary: 'Calculates the real-time CDI rate at 100% of the benchmark.',
+        description:
+          'Retrieves the most recent CDI data directly from Banco Central do Brasil and calculates the real-time accrual for 100% of the CDI considering the current São Paulo time.',
+        parameters: [
+          {
+            in: 'query',
+            name: 'amount',
+            description: 'Optional amount in BRL used to project the accrued profit in real time.',
+            required: false,
+            schema: {
+              type: 'number',
+              example: 10000,
+              minimum: 0,
+            },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Real-time CDI metrics and optional investment accrual.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: [
+                    'asOf',
+                    'localDateTime',
+                    'timeZone',
+                    'date',
+                    'cdiPercentage',
+                    'annualRate',
+                    'dailyRate',
+                    'dailyFactor',
+                    'accruedRate',
+                    'accruedFactor',
+                    'perSecondRate',
+                    'perSecondFactor',
+                    'elapsedBusinessSeconds',
+                    'secondsInBusinessDay',
+                  ],
+                  properties: {
+                    asOf: {
+                      type: 'string',
+                      format: 'date-time',
+                      description: 'Timestamp in UTC when the real-time rate was computed.',
+                    },
+                    localDateTime: {
+                      type: 'string',
+                      description: 'Local São Paulo date-time used for the accrual.',
+                      example: '2025-10-03T14:32:05',
+                    },
+                    timeZone: {
+                      type: 'string',
+                      description: 'Time zone reference for the local date-time.',
+                      example: 'America/Sao_Paulo',
+                    },
+                    date: {
+                      type: 'string',
+                      format: 'date',
+                      description: 'Reference date of the CDI rate.',
+                      example: '2025-10-03',
+                    },
+                    cdiPercentage: {
+                      type: 'number',
+                      description: 'Percentage of the CDI benchmark applied in the calculation.',
+                      example: 100,
+                    },
+                    annualRate: {
+                      type: 'number',
+                      description: 'Annual CDI rate informed by Banco Central do Brasil.',
+                      example: 13.65,
+                    },
+                    dailyRate: {
+                      type: 'number',
+                      description: 'Effective CDI rate for one business day.',
+                      example: 0.5,
+                    },
+                    dailyFactor: {
+                      type: 'number',
+                      description: 'Growth factor equivalent to the daily CDI rate.',
+                      example: 1.005,
+                    },
+                    accruedRate: {
+                      type: 'number',
+                      description: 'Accumulated CDI percentage since the start of the business day.',
+                      example: 0.21,
+                    },
+                    accruedFactor: {
+                      type: 'number',
+                      description: 'Growth factor accumulated since the start of the business day.',
+                      example: 1.0021,
+                    },
+                    perSecondRate: {
+                      type: 'number',
+                      description: 'Effective CDI rate per second.',
+                      example: 0.000006,
+                    },
+                    perSecondFactor: {
+                      type: 'number',
+                      description: 'Growth factor equivalent to one elapsed second.',
+                      example: 1.00000006,
+                    },
+                    elapsedBusinessSeconds: {
+                      type: 'integer',
+                      description: 'Number of seconds elapsed in the current business day in São Paulo.',
+                      example: 45000,
+                    },
+                    secondsInBusinessDay: {
+                      type: 'integer',
+                      description: 'Total number of seconds considered for a business day (24 hours).',
+                      example: 86400,
+                    },
+                    investmentProjection: {
+                      type: 'object',
+                      description: 'Real-time projection for the provided investment amount.',
+                      required: ['principal', 'accruedProfit', 'finalAmount', 'factorApplied'],
+                      properties: {
+                        principal: {
+                          type: 'number',
+                          description: 'Amount invested in BRL.',
+                          example: 10000,
+                        },
+                        accruedProfit: {
+                          type: 'number',
+                          description: 'Profit accrued so far in BRL.',
+                          example: 21.45,
+                        },
+                        finalAmount: {
+                          type: 'number',
+                          description: 'Current total value considering the accrued CDI.',
+                          example: 10021.45,
+                        },
+                        factorApplied: {
+                          type: 'number',
+                          description: 'Growth factor applied to the principal to obtain the final amount.',
+                          example: 1.002145,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          '400': {
+            description: 'Validation error for the provided query parameters.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['message'],
+                  properties: {
+                    message: {
+                      type: 'string',
+                      example: 'The "amount" query parameter must be a positive number.',
+                    },
+                  },
+                },
+              },
+            },
+          },
+          '502': {
+            description: 'Error returned when the API cannot communicate with Banco Central do Brasil.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['message'],
+                  properties: {
+                    message: {
+                      type: 'string',
+                      example: 'Unable to retrieve CDI rate from Banco Central do Brasil.',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     '/finance/simulator': {
       post: {
         tags: ['Finance'],
