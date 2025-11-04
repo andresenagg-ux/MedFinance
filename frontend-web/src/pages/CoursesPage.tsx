@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import IncomeTaxCalculator from '../components/IncomeTaxCalculator';
 
 const numberFormatter = new Intl.NumberFormat('pt-BR');
 
@@ -781,6 +782,25 @@ const CoursesPage = () => {
               </article>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="courses-tools" aria-labelledby="tools-heading">
+        <div className="container courses-tools__grid">
+          <div className="courses-tools__intro">
+            <span className="courses-tools__badge">Ferramenta exclusiva</span>
+            <h2 id="tools-heading">Calculadora de Imposto de Renda em tempo real</h2>
+            <p>
+              Simule cenários de retenção mensal com os dados da sua clínica ou atuação como pessoa física e compare, em
+              segundos, o modelo completo com o desconto simplificado da Receita Federal.
+            </p>
+            <ul>
+              <li>Resultados atualizados conforme você digita os valores</li>
+              <li>Comparação automática entre regimes com destaque para o líquido mensal</li>
+              <li>Indicadores de alíquota efetiva para apoiar decisões de distribuição de pro-labore</li>
+            </ul>
+          </div>
+          <IncomeTaxCalculator />
         </div>
       </section>
 

@@ -1233,6 +1233,190 @@
     color: rgb(var(--color-danger-600) / 1);
   }
 
+  .courses-tools {
+    background: linear-gradient(135deg, rgb(var(--color-brand-50) / 1), rgb(var(--color-brand-100) / 1));
+    padding: clamp(3rem, 8vw, 5rem) 0;
+  }
+
+  .courses-tools__grid {
+    display: grid;
+    gap: clamp(2rem, 6vw, 4rem);
+  }
+
+  @media (min-width: 960px) {
+    .courses-tools__grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      align-items: stretch;
+    }
+  }
+
+  .courses-tools__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .courses-tools__badge {
+    align-self: flex-start;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgb(var(--color-brand-600) / 1);
+    color: white;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+  }
+
+  .courses-tools__intro h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin: 0;
+  }
+
+  .courses-tools__intro p {
+    margin: 0;
+    line-height: 1.7;
+    color: rgb(var(--color-gray-700) / 1);
+  }
+
+  .courses-tools__intro ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.75rem;
+    color: rgb(var(--color-gray-800) / 1);
+  }
+
+  .courses-tools__intro li::marker {
+    color: rgb(var(--color-brand-600) / 1);
+  }
+
+  .tax-calculator {
+    height: 100%;
+  }
+
+  .tax-calculator__card {
+    background: white;
+    border-radius: var(--radius-3xl);
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+    padding: clamp(2rem, 5vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
+  }
+
+  .tax-calculator__header h3 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .tax-calculator__header p {
+    margin: 0;
+    color: rgb(var(--color-gray-600) / 1);
+    line-height: 1.7;
+  }
+
+  .tax-calculator__grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .tax-calculator__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .tax-calculator__grid label {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: rgb(var(--color-gray-800) / 1);
+  }
+
+  .tax-calculator__grid input {
+    appearance: textfield;
+    border-radius: var(--radius-xl);
+    border: 1px solid rgb(var(--color-gray-300) / 1);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+
+  .tax-calculator__grid input:focus {
+    outline: none;
+    border-color: rgb(var(--color-brand-500) / 1);
+    box-shadow: 0 0 0 3px rgb(var(--color-brand-200) / 0.6);
+  }
+
+  .tax-calculator__results {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 720px) {
+    .tax-calculator__results {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .tax-calculator__result {
+    border: 1px solid rgb(var(--color-gray-200) / 1);
+    border-radius: var(--radius-2xl);
+    padding: 1.5rem;
+    background: rgb(var(--color-gray-50) / 1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tax-calculator__result header h4 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .tax-calculator__result header span {
+    color: rgb(var(--color-gray-600) / 1);
+    font-size: 0.95rem;
+  }
+
+  .tax-calculator__result dl {
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .tax-calculator__result dl div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .tax-calculator__result dt {
+    font-size: 0.9rem;
+    color: rgb(var(--color-gray-600) / 1);
+  }
+
+  .tax-calculator__result dd {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .tax-calculator__result footer {
+    font-size: 0.9rem;
+    color: rgb(var(--color-gray-600) / 1);
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .tax-calculator__result--highlight {
+    border-color: rgb(var(--color-brand-200) / 1);
+    background: rgb(var(--color-brand-50) / 1);
+  }
+
   .courses-benefits {
     padding: 5rem 0;
   }
