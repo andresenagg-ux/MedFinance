@@ -4,9 +4,19 @@ import { videoService } from '../src/services/videoService';
 import { userService } from '../src/services/userService';
 
 const app = createApp();
-const [adminUser, studentUser] = userService.list();
+let adminUser: Awaited<ReturnType<typeof userService.list>>[number];
+let studentUser: Awaited<ReturnType<typeof userService.list>>[number];
 
 describe('Video upload access control', () => {
+  beforeAll(async () => {
+    const users = await userService.list();
+    if (!users || users.length < 2) {
+      throw new Error('User fixtures are not available for tests.');
+    }
+
+    [adminUser, studentUser] = users;
+  });
+
   beforeEach(() => {
     videoService.clear();
   });

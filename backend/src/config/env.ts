@@ -5,6 +5,9 @@ type Env = {
   PORT: number;
   LOG_LEVEL: 'debug' | 'info';
   CORS_ALLOWED_ORIGINS: string[];
+  FIREBASE_PROJECT_ID?: string;
+  FIREBASE_CLIENT_EMAIL?: string;
+  FIREBASE_PRIVATE_KEY?: string;
 };
 
 function parseNumber(value: string | undefined, fallback: number): number {
@@ -32,4 +35,7 @@ export const env: Env = {
     'http://localhost:3000',
     'http://localhost:5173',
   ]),
+  FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
+  FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
+  FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY,
 };
