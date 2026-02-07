@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "daily"
+    security-updates: true
+  - package-ecosystem: "npm"
+    directory: "/frontend-web"
+    schedule:
+      interval: "daily"
+    security-updates: true
+  - package-ecosystem: "npm"
+    directory: "/frontend-mobile"
+    schedule:
+      interval: "daily"
+    security-updates: true
